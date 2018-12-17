@@ -3,6 +3,7 @@
 	<name>json_solver</name>
 	<comment></comment>
 	<projects>
+		<project>json_parser</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

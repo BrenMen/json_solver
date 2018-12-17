@@ -17,7 +17,7 @@ public class JSONProblemSolver {
 	 * @throws IOException
 	 * @throws JSONException
 	 */
-	public String solve(String url) throws IOException, JSONException {
+	public String solve(String url) throws IOException, CustomException {
 		//Creating instances of my finder and sender classes.
 		TaskFinder taskFinder = new TaskFinder();
 		AnswerSender answerSender = new AnswerSender();
