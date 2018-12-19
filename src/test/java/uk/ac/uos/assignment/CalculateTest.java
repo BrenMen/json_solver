@@ -6,64 +6,62 @@ import org.junit.Test;
 
 public class CalculateTest {
 
-	Calculate jt;
+	Calculate instruction;
+	
+	@Test
+	public void correctMultipl5Times3Test() throws CustomException {
+		instruction = new Calculate("multiply", "5", "3", "/answer/e94gj3");
+		String result = instruction.getAnswer();
+		assertEquals("15", result);
+	}
+	
+	@Test
+	public void corectAdd7And2Test() {
+		instruction = new Calculate("add", "7", "2", "/answer/e94gj3");
+		int result = instruction.add("7", "2");
+		assertEquals(9, result);
+	}
 
 	@Test
-	public void adding1And1Gives2() {
-		jt = new Calculate("add", "1", "1", "/answer/d3ae45");
-		int result = jt.add("1", "1");
-		assertEquals(2, result);
+	public void correctConcatGetAnswerForLemonAndSaltTest() throws CustomException {
+		instruction = new Calculate("concat", "Lemon", "Salt", "/answer/e94gj3");
+		String result = instruction.getAnswer();
+		assertEquals("LemonSalt", result);
 	}
 	
 	@Test
-	public void multiplying6And2Gives12() {
-		jt = new Calculate("multiply", "6", "2", "/answer/d3ae45");
-		int result = jt.multiply("6", "2");
-		assertEquals(12, result);
+	public void correctConcateOrangeAndPearTest() {
+		instruction = new Calculate("concatenate", "Orange", "Pear", "/answer/e94gj3");
+		String result = instruction.concatenate("Orange", "Pear");
+		assertEquals("OrangePear", result);
 	}
 	
 	@Test
-	public void concatenatingHelloAndWorldGivesHelloWorld() {
-		jt = new Calculate("concatenate", "Hello", "World", "/answer/d3ae45");
-		String result = jt.concatenate("Hello", "World");
-		assertEquals("HelloWorld", result);
+	public void correctMultiply9And4Test() {
+		instruction = new Calculate("multiply", "9", "4", "/answer/e94gj3");
+		int result = instruction.multiply("9", "4");
+		assertEquals(36, result);
 	}
 	
 	@Test
-	public void gettingAnswerForAddCase() throws CustomException {
-		jt = new Calculate("add", "176", "2", "/answer/d3ae45");
-		String result = jt.getAnswer();
-		assertEquals("178", result);
+	public void correctAddGetAnswerfor253And73Test() throws CustomException {
+		instruction = new Calculate("add", "253", "73", "/answer/e94gj3");
+		String result = instruction.getAnswer();
+		assertEquals("326", result);
 	}
 	
 	@Test
-	public void gettingAnswerForMultiplyCase() throws CustomException {
-		jt = new Calculate("multiply", "10", "2", "/answer/d3ae45");
-		String result = jt.getAnswer();
-		assertEquals("20", result);
-	}
-	
-	@Test
-	public void gettingAnswerForConcatenateCase() throws CustomException {
-		jt = new Calculate("concat", "Uni", "Time", "/answer/d3ae45");
-		String result = jt.getAnswer();
-		assertEquals("UniTime", result);
-	}
-	
-	@Test
-	public void invalidInstructionThrowsJSONException() {
-		boolean thrown = false;
-		String message = "";
-		jt = new Calculate("divide", "4", "3", "/answer/d3ae45");
-		
+	public void invalidInstructionThrowsCorrectException() {
+		boolean exception = false;
+		String customMessage = "";
+		instruction = new Calculate("remainder", "6.4", "2", "/answer/e94gj3");
 		try {
-			jt.getAnswer();
-		} catch (CustomException e) {
-			thrown = true;
-			message = e.getMessage();
+			instruction.getAnswer();
+		} catch (CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
 		}
-		
-		assertEquals(true, thrown);
-		assertEquals("Boom! Error. Unexpected instruction divide", message);
+		assertEquals(true, exception);
+		assertEquals("Error! Invalid instruction: remainder", customMessage);
 	}
 }

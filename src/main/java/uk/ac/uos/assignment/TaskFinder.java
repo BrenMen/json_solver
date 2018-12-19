@@ -45,7 +45,7 @@ public class TaskFinder {
 			taskErrorCheck(taskInstructions, taskURL);
 			}
 	}		
-		
+	
 	// Finding all the individual task URL's to make the taskList.
 	public String getTaskList(String taskInput) throws IOException, CustomException {
 		String[] urlSplit = taskInput.split("id=");
@@ -67,7 +67,7 @@ public class TaskFinder {
 		String id = (String) parseJSONObject.thisObjectContents.get("id");
 		boolean isCorrectList = id.equals(studentNumber) ? true : false;
 		if (isCorrectList == false) {
-			throw new CustomException("Error! These are incorrect tasks for this ID.");
+			throw new CustomException("Error! The tasks or ID are incorrect.");
 		}
 		return (ArrayList<Object>) parseJSONArray.thisArrayContents;
 

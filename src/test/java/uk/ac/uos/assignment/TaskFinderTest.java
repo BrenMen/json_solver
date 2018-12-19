@@ -7,7 +7,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.io.IOException;
 
-
 public class TaskFinderTest {
 	TaskFinder taskFinder;
 
@@ -17,154 +16,150 @@ public class TaskFinderTest {
 	}
 	
 	@Test
-	public void taskFromJSONTest() throws IOException, CustomException {
+	public void correctTaskListFromURLTest() throws Exception {
+		taskFinder.taskFinder("http://i2j.openode.io/student?id=s195215");
+	}
+	
+	@Test
+	public void correctRequestOfTaskListTest() throws Exception {
+		String taskURL = taskFinder.getTaskList("http://i2j.openode.io/student?id=s195215");
+		String result = "{\"id\":\"s195215\",\"tasks\":[\"/task/7518\",\"/task/5589\",\"/task/2386\",\"/task/3273\",\"/task/3383\",\"/task/7670\",\"/task/6661\",\"/task/5508\",\"/task/6160\",\"/task/4638\"]}";
+		assertEquals(result, taskURL);
+	}
+	
+	@Test
+	public void correctIndividualTaskTest() throws IOException, CustomException {
 		Calculate task = taskFinder.parseSpecificTask("{\"instruction\":\"multiply\",\"parameters\":[346,24],\"response URL\":\"/answer/8304\"}\n");
-		
 		String instruction = task.instruction;
-		String parameter1 = task.param1;
-		String parameter2 = task.parameter2;
-		String responseURL = task.responseURL;
+		String paramOne = task.paramOne;
+		String paramTwo = task.paramTwo;
+		String responseURL = task.response;
 		
-		assertEquals("add", instruction);
-		assertEquals("8054", parameter1);
-		assertEquals("2119", parameter2);
-		assertEquals("/answer/8473", responseURL);
+		assertEquals("multiply", instruction);
+		assertEquals("346", paramOne);
+		assertEquals("24", paramTwo);
+		assertEquals("/answer/8304", responseURL);
 	}
 	
 	@Test
-	public void accuratelyParsingATaskJSONPage() throws IOException, CustomException {
-		taskFinder.studentNumber = "s188216";
-		ArrayList<Object> listOfTasks = taskFinder.parseTaskList("{\"id\":\"s188216\",\"tasks\":[\"/task/8473\",\"/task/7225\",\"/task/983\",\"/task/4963\",\"/task/8413\",\"/task/2915\",\"/task/9946\",\"/task/1621\",\"/task/6432\",\"/task/1090\"]}\n");
-		String task1 = (String) listOfTasks.get(0);
-		String task2 = (String) listOfTasks.get(1);
-		String task3 = (String) listOfTasks.get(2);
-		String task4 = (String) listOfTasks.get(3);
-		String task5 = (String) listOfTasks.get(4);
-		String task6 = (String) listOfTasks.get(5);
-		String task7 = (String) listOfTasks.get(6);
-		String task8 = (String) listOfTasks.get(7);
-		String task9 = (String) listOfTasks.get(8);
-		String task10 = (String) listOfTasks.get(9);
+	public void correctTaskListTest() throws IOException, CustomException {
+		taskFinder.studentNumber = "s195215";
+		ArrayList<Object> listOfTasks = taskFinder.parseTaskList("{\"id\":\"s195215\",\"tasks\":[\"/task/3964\",\"/task/263\",\"/task/2393\",\"/task/3262\",\"/task/9768\",\"/task/279\",\"/task/2947\",\"/task/1968\",\"/task/9671\",\"/task/7241\"]}\n");
+		String taskOne = (String) listOfTasks.get(0);
+		String taskTwo = (String) listOfTasks.get(1);
+		String taskThree = (String) listOfTasks.get(2);
+		String taskFour = (String) listOfTasks.get(3);
+		String taskFive = (String) listOfTasks.get(4);
+		String taskSix = (String) listOfTasks.get(5);
+		String taskSeven = (String) listOfTasks.get(6);
+		String taskEight = (String) listOfTasks.get(7);
+		String taskNine = (String) listOfTasks.get(8);
+		String taskTen = (String) listOfTasks.get(9);
 		
-		assertEquals("/task/8473", task1);
-		assertEquals("/task/7225", task2);
-		assertEquals("/task/983", task3);
-		assertEquals("/task/4963", task4);
-		assertEquals("/task/8413", task5);
-		assertEquals("/task/2915", task6);
-		assertEquals("/task/9946", task7);
-		assertEquals("/task/1621", task8);
-		assertEquals("/task/6432", task9);
-		assertEquals("/task/1090", task10);
+		assertEquals("/task/3964", taskOne);
+		assertEquals("/task/263", taskTwo);
+		assertEquals("/task/2393", taskThree);
+		assertEquals("/task/3262", taskFour);
+		assertEquals("/task/9768", taskFive);
+		assertEquals("/task/279", taskSix);
+		assertEquals("/task/2947", taskSeven);
+		assertEquals("/task/1968", taskEight);
+		assertEquals("/task/9671", taskNine);
+		assertEquals("/task/7241", taskTen);
 	}
 	
 	@Test
-	public void parsingTaskJSONWithIncorrectID() throws IOException {
-		boolean thrown = false;
-		String message = "";
+	public void correctTaskListCreationTest() throws Exception {
+		taskFinder.taskFinder("http://i2j.openode.io/student?id=s195215");
+		ArrayList<String> taskList = taskFinder.taskPathURLs;
+		String taskOne = taskList.get(0);
+		String taskTwo = taskList.get(1);
+		String taskThree = taskList.get(2);
+		String taskFour = taskList.get(3);
+		String taskFive = taskList.get(4);
+		String taskSix = taskList.get(5);
+		String taskSeven = taskList.get(6);
+		String taskEight = taskList.get(7);
+		String taskNine = taskList.get(8);
+		String taskTen = taskList.get(9);
 		
+		assertEquals("/task/7518", taskOne);
+		assertEquals("/task/5589", taskTwo);
+		assertEquals("/task/2386", taskThree);
+		assertEquals("/task/3273", taskFour);
+		assertEquals("/task/3383", taskFive);
+		assertEquals("/task/7670", taskSix);
+		assertEquals("/task/6661", taskSeven);
+		assertEquals("/task/5508", taskEight);
+		assertEquals("/task/6160", taskNine);
+		assertEquals("/task/4638", taskTen);
+	}
+	
+	@Test
+	public void correctgetTaskTest() throws IOException, CustomException {
+		String thisTask = taskFinder.getSpecificTask("http://i2j.openode.io/task/7518");
+		assertEquals("{\"instruction\":\"add\",\"parameters\":[7092,6937],\"response URL\":\"/answer/7518\"}", thisTask);
+	}	
+
+	@Test
+	public void invalidTaskListTest() throws IOException {
+		boolean exception = false;
+		String customMessage = "";
 		try {
-			taskFinder.parseTaskList("{\"id\":\"s9\",\"tasks\":[\"/task/8473\",\"/task/7225\",\"/task/983\",\"/task/4963\",\"/task/8413\",\"/task/2915\",\"/task/9946\",\"/task/1621\",\"/task/6432\",\"/task/1090\"]}\n");
-		} catch(CustomException e) {
-			thrown = true;
-			message = e.getMessage();
+			taskFinder.parseTaskList("{\"id\":\"s23\",\"tasks\":[\"/task/2863\",\"/task/5876\",\"/task/9335\",\"/task/289\",\"/task/3862\",\"/task/9261\",\"/task/9270\",\"/task/9276\",\"/task/3275\",\"/task/3223\"]}\n");
+		} catch(CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
 		}
-		
-		assertEquals(true, thrown);
-		assertEquals("Error! These are incorrect tasks for this ID.", message);
+		assertEquals(true, exception);
+		assertEquals("Error! The tasks or ID are incorrect.", customMessage);
 	}
 	
 	@Test
-	public void gettingMyTaskJSONCorrectly() throws Exception {
-		String taskJSON = taskFinder.getTaskList("http://i2j.openode.io/student?id=s188216");
-		String expected = "{\"id\":\"s188216\",\"tasks\":[\"/task/8473\",\"/task/7225\",\"/task/983\",\"/task/4963\",\"/task/8413\",\"/task/2915\",\"/task/9946\",\"/task/1621\",\"/task/6432\",\"/task/1090\"]}";
-		assertEquals(expected, taskJSON);
-	}
-	
-	@Test
-	public void connectingToWrongURL() {
-		boolean thrown = false;
-		String message = "";
+	public void invalidUserURLTest() {
+		boolean exception = false;
+		String customMessage = "";
 		try {
-			taskFinder.getTaskList("http://i2j.openode.io/student?id=s123456");
-		} catch(Exception e) {
-			thrown = true;
-			message = e.getMessage();
+			taskFinder.getTaskList("http://i2j.openode.io/student?id=s111111");
+		} catch(Exception error) {
+			exception = true;
+			customMessage = error.getMessage();
 		}
-		assertEquals(true, thrown);
-		assertEquals("Error! Unable to connect to task: http://i2j.openode.io/student?id=s123456", message);
+		assertEquals(true, exception);
+		assertEquals("Error! Unable to connect to task: http://i2j.openode.io/student?id=s111111", customMessage);
 	}
 	
 	@Test
-	public void generatingTheListOfTasks() throws Exception {
-		taskFinder.taskFinder("http://i2j.openode.io/student?id=s188216");
-		ArrayList<String> listOfTasks = taskFinder.taskPathURLs;
-		String task1 = listOfTasks.get(0);
-		String task2 = listOfTasks.get(1);
-		String task3 = listOfTasks.get(2);
-		String task4 = listOfTasks.get(3);
-		String task5 = listOfTasks.get(4);
-		String task6 = listOfTasks.get(5);
-		String task7 = listOfTasks.get(6);
-		String task8 = listOfTasks.get(7);
-		String task9 = listOfTasks.get(8);
-		String task10 = listOfTasks.get(9);
-		
-		assertEquals("/task/8473", task1);
-		assertEquals("/task/7225", task2);
-		assertEquals("/task/983", task3);
-		assertEquals("/task/4963", task4);
-		assertEquals("/task/8413", task5);
-		assertEquals("/task/2915", task6);
-		assertEquals("/task/9946", task7);
-		assertEquals("/task/1621", task8);
-		assertEquals("/task/6432", task9);
-		assertEquals("/task/1090", task10);
-	}
-	
-	@Test
-	public void gettingTheJSONForATask() throws IOException, CustomException {
-		String taskJSON = taskFinder.getSpecificTask("http://i2j.openode.io/task/8473");
-		assertEquals("{\"instruction\":\"add\",\"parameters\":[8054,2119],\"response URL\":\"/answer/8473\"}", taskJSON);
-	}
-	
-	@Test
-	public void gettingTheJSONForATaskWithIncorrectURL() throws IOException, CustomException {
-		boolean thrown = false;
-		String message = "";
+	public void invalidTaskURLTest() throws IOException, CustomException {
+		boolean exception = false;
+		String customMessage = "";
 		try {
-			taskFinder.getSpecificTask("http://i2j.openode.io/task/847399999999");
-		} catch(CustomException e) {
-			thrown = true;
-			message = e.getMessage();
+			taskFinder.getSpecificTask("http://i2j.openode.io/task/851359178341359");
+		} catch(CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
 		}
-		assertEquals(true, thrown);
-		assertEquals("Error! Unable to connect to task: http://i2j.openode.io/task/847399999999", message);
+		assertEquals(true, exception);
+		assertEquals("Error! Unable to connect to task: http://i2j.openode.io/task/851359178341359", customMessage);
 	}
 	
 	@Test
-	public void returningErrorMessageToCorrectURL() throws IOException, CustomException {
-		int result = taskFinder.serverErrorCheck("http://i2j.openode.io/task/6432", "Boom! Error. Invalid JSON.");
+	public void correctServerErrorCheckTest() throws IOException, CustomException {
+		int result = taskFinder.serverErrorCheck("http://i2j.openode.io/task/6160", "Error! Invalid task");
 		assertEquals(200, result);
 	}
 	
 	@Test
-	public void returningErrorMessageToIncorrectURLThrowsException() throws IOException, CustomException {
-		boolean thrown = false;
-		String message = "";
+	public void invalidServerErrorCheckTest() throws IOException, CustomException {
+		boolean exception = false;
+		String customMessage = "";
 		try {
-			taskFinder.serverErrorCheck("http://i2j.openode.io/task/84731111", "Boom! Error. Invalid JSON.");
-		} catch(CustomException e) {
-			thrown = true;
-			message = e.getMessage();
+			taskFinder.serverErrorCheck("http://i2j.openode.io/task/9687235728", "Error! Invalid task");
+		} catch(CustomException error) {
+			exception = true;
+			customMessage = error.getMessage();
 		}
-		assertEquals(true, thrown);
-		assertEquals("Error! Unable to connect to URL: http://i2j.openode.io/task/84731111", message);
+		assertEquals(true, exception);
+		assertEquals("Error! Unable to connect to URL: http://i2j.openode.io/task/9687235728", customMessage);
 	}
-	
-	@Test
-	public void buildingASetOfTasksFromURL() throws Exception {
-		taskFinder.taskFinder("http://i2j.openode.io/student?id=s188216");
-	}
-
 }
