@@ -30,20 +30,15 @@ public class Calculate {
 		return sumAnswer;
 	}
 
-	public int multiplyValues(String numOne, String numTwo) {
-		int resultOne = Integer.parseInt(numOne);
-		int resultTwo = Integer.parseInt(numTwo);
-		return resultOne * resultTwo;
+	public int multiplyValues(String paramOne, String paramTwo) {
+		return Integer.parseInt(paramOne) * Integer.parseInt(paramTwo);
 	}
 	
-	public int addValues(String numOne, String numTwo) {
-		int resultOne = Integer.parseInt(numOne);
-		int resultTwo = Integer.parseInt(numTwo);
-		return resultOne + resultTwo;
+	public int addValues(String paramOne, String paramTwo) {
+		return Integer.parseInt(paramOne) + Integer.parseInt(paramTwo);
 	}
 
-	public String concatenateValues(String stringOne, String stringTwo) {
-		String result = stringOne + stringTwo;
-		return result;
+	public String concatenateValues(String paramOne, String paramTwo) {
+		return paramOne + paramTwo;
 	}
 }

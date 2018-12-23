@@ -20,58 +20,50 @@ Invalid task: 200
 Error for task: http://i2j.openode.io/task/4638
 
 
-Destination Url: http://i2j.openode.io/answer/7518
+Destination URL: http://i2j.openode.io/answer/7518
 Instruction: add
 Parameter One: 7092
 Parameter Two: 6937
 Answer: 14029
-Response code = 200
 
-Destination Url: http://i2j.openode.io/answer/5589
+Destination URL: http://i2j.openode.io/answer/5589
 Instruction: multiply
 Parameter One: 4500
 Parameter Two: 5245
 Answer: 23602500
-Response code = 200
 
-Destination Url: http://i2j.openode.io/answer/2386
+Destination URL: http://i2j.openode.io/answer/2386
 Instruction: concat
 Parameter One: 1916
 Parameter Two: 6575
 Answer: 19166575
-Response code = 200
 
-Destination Url: http://i2j.openode.io/answer/3273
+Destination URL: http://i2j.openode.io/answer/3273
 Instruction: add
 Parameter One: 473
 Parameter Two: 594
 Answer: 1067
-Response code = 200
 
-Destination Url: http://i2j.openode.io/answer/3383
+Destination URL: http://i2j.openode.io/answer/3383
 Instruction: concat
 Parameter One: 2207
 Parameter Two: 9785
 Answer: 22079785
-Response code = 200
 
-Destination Url: http://i2j.openode.io/answer/7670
+Destination URL: http://i2j.openode.io/answer/7670
 Instruction: multiply
 Parameter One: 7682
 Parameter Two: 2325
 Answer: 17860650
-Response code = 200
 
-Destination Url: http://i2j.openode.io/answer/6661
+Destination URL: http://i2j.openode.io/answer/6661
 Instruction: concat
 Parameter One: 8689
 Parameter Two: 9255
 Answer: 86899255
-Response code = 200
 
-Destination Url: http://i2j.openode.io/answer/5508
+Destination URL: http://i2j.openode.io/answer/5508
 Instruction: concat
 Parameter One: 7907
 Parameter Two: 4401
 Answer: 79074401
-Response code = 200
