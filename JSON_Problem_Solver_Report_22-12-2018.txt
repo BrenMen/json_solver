@@ -1,0 +1,67 @@
+Tasks received from the domain URL:
+{"id":"s195215","tasks":["/task/7518","/task/5589","/task/2386","/task/3273","/task/3383","/task/7670","/task/6661","/task/5508","/task/6160","/task/4638"]}
+
+Tasks list:
+Error message: Error! Invalid instruction: subtract
+Invalid task: 200
+Error for task: http://i2j.openode.io/task/6160
+Error message: Error! This is an invalid Object.
+Invalid task: 200
+Error for task: http://i2j.openode.io/task/4638
+
+
+Destination Url: http://i2j.openode.io/answer/7518
+Instruction: add
+Parameter One: 7092
+Parameter Two: 6937
+Answer: 14029
+Response code = 200
+
+Destination Url: http://i2j.openode.io/answer/5589
+Instruction: multiply
+Parameter One: 4500
+Parameter Two: 5245
+Answer: 23602500
+Response code = 200
+
+Destination Url: http://i2j.openode.io/answer/2386
+Instruction: concat
+Parameter One: 1916
+Parameter Two: 6575
+Answer: 19166575
+Response code = 200
+
+Destination Url: http://i2j.openode.io/answer/3273
+Instruction: add
+Parameter One: 473
+Parameter Two: 594
+Answer: 1067
+Response code = 200
+
+Destination Url: http://i2j.openode.io/answer/3383
+Instruction: concat
+Parameter One: 2207
+Parameter Two: 9785
+Answer: 22079785
+Response code = 200
+
+Destination Url: http://i2j.openode.io/answer/7670
+Instruction: multiply
+Parameter One: 7682
+Parameter Two: 2325
+Answer: 17860650
+Response code = 200
+
+Destination Url: http://i2j.openode.io/answer/6661
+Instruction: concat
+Parameter One: 8689
+Parameter Two: 9255
+Answer: 86899255
+Response code = 200
+
+Destination Url: http://i2j.openode.io/answer/5508
+Instruction: concat
+Parameter One: 7907
+Parameter Two: 4401
+Answer: 79074401
+Response code = 200

@@ -7,12 +7,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.io.IOException;
 
-public class TaskFinderTest {
-	TaskFinder taskFinder;
+public class FindTaskTest {
+	FindTask taskFinder;
 
 	@Before
 	public void setUp() throws Exception {
-		taskFinder = new TaskFinder();
+		taskFinder = new FindTask();
 	}
 	
 	@Test
@@ -97,7 +97,7 @@ public class TaskFinderTest {
 	
 	@Test
 	public void correctgetTaskTest() throws IOException, CustomException {
-		String thisTask = taskFinder.getSpecificTask("http://i2j.openode.io/task/7518");
+		String thisTask = taskFinder.getRequest("http://i2j.openode.io/task/7518");
 		assertEquals("{\"instruction\":\"add\",\"parameters\":[7092,6937],\"response URL\":\"/answer/7518\"}", thisTask);
 	}	
 
@@ -134,7 +134,7 @@ public class TaskFinderTest {
 		boolean exception = false;
 		String customMessage = "";
 		try {
-			taskFinder.getSpecificTask("http://i2j.openode.io/task/851359178341359");
+			taskFinder.getRequest("http://i2j.openode.io/task/851359178341359");
 		} catch(CustomException error) {
 			exception = true;
 			customMessage = error.getMessage();

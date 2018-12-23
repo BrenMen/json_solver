@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.BufferedReader;
 
-public class TaskFinder {
+public class FindTask {
 
 	// Initialising my JSON Parser to be used.
 	JSONParser jsonParser = new JSONParser();
@@ -41,7 +41,7 @@ public class TaskFinder {
 		// Parsing each of the taskPathURLs.
 		for (int i = 0; i < taskPathURLs.size(); i++) {
 			String taskURL = taskDomainURL + taskPathURLs.get(i);
-			String taskInstructions = getSpecificTask(taskURL);
+			String taskInstructions = getRequest(taskURL);
 			taskErrorCheck(taskInstructions, taskURL);
 			}
 	}		
@@ -53,10 +53,11 @@ public class TaskFinder {
 		studentNumber = urlSplit[1];
 
 		// Making URL Connection for receiving tasks.
-		String tasks = getRequest(taskInput);
 		output += "Tasks received from the domain URL:\n";
-		output += tasks + "\n";
+		String tasks = getRequest(taskInput);
+		output += "\n";
 		return tasks;
+		
 	}
 	
 	// Processing the taskList into readable Objects.
@@ -71,14 +72,6 @@ public class TaskFinder {
 		}
 		return (ArrayList<Object>) parseJSONArray.thisArrayContents;
 
-	}
-	
-	// Making an URL Connection for receiving tasks.
-	public String getSpecificTask(String taskInput) throws IOException, CustomException {
-		String tasks = getRequest(taskInput);
-		output += tasks;
-		output += "\n";
-		return tasks;
 	}
 	
 	// Processing the specific task to be accepted by the Calculator class. 
@@ -108,7 +101,6 @@ public class TaskFinder {
 			throw new CustomException("Error! This is an invalid parameter: " + paramTwo);
 		}
 		String senderURL = (String) parseJSONObject.thisObjectContents.get("response URL");
-
 		// Calling Calculate class to process the given information.
 		return new Calculate(parseJSONInstruction, paramStringOne, paramStringTwo, senderURL);
 	}	
@@ -127,9 +119,9 @@ public class TaskFinder {
 		String taskList = "";
 		while ((thisTask = reader.readLine()) != null) {
 			taskList += thisTask;
+			System.out.println(taskList);
 		}
 		reader.close();
-		output += "task output:\n";
 		output += taskList + "\n";
 		return taskList;
 	}
@@ -143,8 +135,8 @@ public class TaskFinder {
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestMethod("POST");
 		DataOutputStream outputStream = new DataOutputStream(con.getOutputStream());
-		outputStream.writeBytes(errorMessage);
 		outputStream.flush();
+		outputStream.writeBytes(errorMessage);
 		outputStream.close();
 		int responseCode = con.getResponseCode();
 		if (responseCode != 200) {
@@ -159,7 +151,7 @@ public class TaskFinder {
 		Calculate thisTask = null;
 		try {
 			thisTask = parseSpecificTask(taskInstructions);
-			thisTask.getAnswer();
+			thisTask.getSum();
 		} catch (CustomException error) {
 			int validTaskURL = serverErrorCheck(taskURL, error.getMessage());
 			output += "Error message: " + error.getMessage() + "\n";
