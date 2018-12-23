@@ -11,7 +11,7 @@ public class FindTaskTest {
 	FindTask taskFinder;
 
 	@Before
-	public void setUp() throws Exception {
+	public void before() throws Exception {
 		taskFinder = new FindTask();
 	}
 	
@@ -141,25 +141,5 @@ public class FindTaskTest {
 		}
 		assertEquals(true, exception);
 		assertEquals("Error! Unable to connect to task: http://i2j.openode.io/task/851359178341359", customMessage);
-	}
-	
-	@Test
-	public void correctServerErrorCheckTest() throws IOException, CustomException {
-		int result = taskFinder.serverErrorCheck("http://i2j.openode.io/task/6160", "Error! Invalid task");
-		assertEquals(200, result);
-	}
-	
-	@Test
-	public void invalidServerErrorCheckTest() throws IOException, CustomException {
-		boolean exception = false;
-		String customMessage = "";
-		try {
-			taskFinder.serverErrorCheck("http://i2j.openode.io/task/9687235728", "Error! Invalid task");
-		} catch(CustomException error) {
-			exception = true;
-			customMessage = error.getMessage();
-		}
-		assertEquals(true, exception);
-		assertEquals("Error! Unable to connect to URL: http://i2j.openode.io/task/9687235728", customMessage);
 	}
 }

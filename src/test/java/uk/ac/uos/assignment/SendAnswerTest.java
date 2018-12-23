@@ -13,7 +13,7 @@ public class SendAnswerTest {
 	SendAnswer sender;
 
 	@Before
-	public void setup() throws Exception {
+	public void before() throws Exception {
 		sender = new SendAnswer();
 	}
 	

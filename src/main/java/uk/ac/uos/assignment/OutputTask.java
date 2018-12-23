@@ -1,43 +1,36 @@
 package uk.ac.uos.assignment;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.io.PrintWriter;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class OutputTask {
 
 	public String formatOutput(String taskUrl) throws CustomException, IOException {
 		String output = "";
-		FindTask findTask = new FindTask();
-		ArrayList<Calculate> taskList = findTask.tasksList;
 		SendAnswer sendAnswer = new SendAnswer();
+		FindTask findTask = new FindTask();
 		findTask.taskFinder(taskUrl);
 		
 		// Constructing the URL for each task to output.
 		String domainUrl = findTask.taskDomainURL;
 		String findTaskOutput = findTask.output;
-		String findSendOutput = sendAnswer.sendAnswer(domainUrl, taskList);
+		String findSendOutput = sendAnswer.sendAnswer(domainUrl, findTask.tasksList);
 		output += findTaskOutput + "\n\n" + findSendOutput;
-		saveToFile(output);
+	
+		// Exporting the output in a text file.
+		String date = new SimpleDateFormat("dd-mm-yyyy").format(new Date());
+		String[] outputLines = output.split("\n");
+		String filename = "Solver_Report_" + date +".txt";
+		new File(filename).createNewFile();
+		PrintWriter printToFile = new PrintWriter(filename, "UTF-8");
+		for (int i = 0; i < outputLines.length; i++) {
+			printToFile.println(outputLines[i]);
+		}
+		printToFile.close();
 		System.out.println(output);
 		return output;
-	}
-	
-	public void saveToFile(String output) throws IOException {
-		Date date = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		String stringDate = dateFormat.format(date);
-		String filename = "JSON_Problem_Solver_Report_" + stringDate +".txt";
-		File file = new File(filename);
-		file.createNewFile();
-		PrintWriter writer = new PrintWriter(filename, "UTF-8");
-		String[] reportArray = output.split("\n");
-		for (int i = 0; i < reportArray.length; i++) {
-			writer.println(reportArray[i]);
-		}
-		writer.close();
 	}
 }

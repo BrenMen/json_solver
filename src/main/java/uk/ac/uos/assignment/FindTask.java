@@ -3,7 +3,6 @@ package uk.ac.uos.assignment;
 import java.util.ArrayList;
 import java.net.URL;
 import java.net.HttpURLConnection;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -126,25 +125,6 @@ public class FindTask {
 		return taskList;
 	}
 	
-	// Checking taskList from the domainURL for errors.
-	public int serverErrorCheck(String taskInput, String errorMessage) throws IOException, CustomException {
-		URL obj = new URL(taskInput);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		con.setDoOutput(true);
-		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		con.setRequestProperty("User-Agent", "Mozilla/5.0");
-		con.setRequestMethod("POST");
-		DataOutputStream outputStream = new DataOutputStream(con.getOutputStream());
-		outputStream.flush();
-		outputStream.writeBytes(errorMessage);
-		outputStream.close();
-		int responseCode = con.getResponseCode();
-		if (responseCode != 200) {
-			throw new CustomException("Error! Unable to connect to URL: " + obj);
-		}
-		return responseCode;
-	}
-	
 	// Checking individual tasks for errors.
 	public void taskErrorCheck(String taskInstructions, String taskURL) throws IOException, CustomException {
 		boolean isParseFailure = false;
@@ -153,9 +133,7 @@ public class FindTask {
 			thisTask = parseSpecificTask(taskInstructions);
 			thisTask.getSum();
 		} catch (CustomException error) {
-			int validTaskURL = serverErrorCheck(taskURL, error.getMessage());
-			output += "Error message: " + error.getMessage() + "\n";
-			output += "Invalid task: " + validTaskURL + "\n";
+			output += error.getMessage() + "\n";
 			output += "Error for task: " + taskURL + "\n";
 			isParseFailure = true;
 		}
