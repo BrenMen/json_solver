@@ -29,12 +29,11 @@ public class FindTaskTest {
 	
 	@Test
 	public void correctIndividualTaskTest() throws IOException, CustomException {
-		Calculate task = taskFinder.parseSpecificTask("{\"instruction\":\"multiply\",\"parameters\":[346,24],\"response URL\":\"/answer/8304\"}\n");
+		SumTask task = taskFinder.parseSpecificTask("{\"instruction\":\"multiply\",\"parameters\":[346,24],\"response URL\":\"/answer/8304\"}\n");
 		String instruction = task.instruction;
 		String paramOne = task.paramOne;
 		String paramTwo = task.paramTwo;
 		String responseURL = task.response;
-		
 		assertEquals("multiply", instruction);
 		assertEquals("346", paramOne);
 		assertEquals("24", paramTwo);
@@ -55,7 +54,6 @@ public class FindTaskTest {
 		String taskEight = (String) listOfTasks.get(7);
 		String taskNine = (String) listOfTasks.get(8);
 		String taskTen = (String) listOfTasks.get(9);
-		
 		assertEquals("/task/3964", taskOne);
 		assertEquals("/task/263", taskTwo);
 		assertEquals("/task/2393", taskThree);
@@ -82,7 +80,6 @@ public class FindTaskTest {
 		String taskEight = taskList.get(7);
 		String taskNine = taskList.get(8);
 		String taskTen = taskList.get(9);
-		
 		assertEquals("/task/7518", taskOne);
 		assertEquals("/task/5589", taskTwo);
 		assertEquals("/task/2386", taskThree);

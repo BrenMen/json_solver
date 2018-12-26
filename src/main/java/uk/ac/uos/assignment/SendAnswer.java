@@ -1,7 +1,7 @@
 
 package uk.ac.uos.assignment;
 
-import uk.ac.uos.assignment.Calculate;
+import uk.ac.uos.assignment.SumTask;
 import java.io.IOException;
 import java.io.DataOutputStream;
 import java.util.ArrayList;
@@ -19,15 +19,15 @@ public class SendAnswer {
 	// Destination of URL's my answers need to be sent to.
 	ArrayList<String> destinationUrls = new ArrayList<String>();
 
-	public String sendAnswer(String domainUrl, ArrayList<Calculate> taskList) throws CustomException, IOException {
+	public String sendAnswer(String domainUrl, ArrayList<SumTask> taskList) throws CustomException, IOException {
 		String output = "";
 		int responseCode = 0;
 		
 		// Converting taskList into a list of answers and destination URL's.
 		for (int i = 0; i < taskList.size(); i++) {
-			Calculate jsonTask = taskList.get(i);
+			SumTask jsonTask = taskList.get(i);
 			destinationUrls.add(jsonTask.response);
-			myAnswers.add(jsonTask.getSum());
+			myAnswers.add(jsonTask.calculate());
 		}
 		for (int i = 0; i < taskList.size(); i++) {
 			String thisUrl = destinationUrls.get(i);

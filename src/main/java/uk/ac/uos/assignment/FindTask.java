@@ -14,7 +14,7 @@ public class FindTask {
 
 	// Task Path URL's to locate the tasksList for completing individual tasks.
 	ArrayList<String> taskPathURLs = new ArrayList<String>();
-	ArrayList<Calculate> tasksList = new ArrayList<Calculate>();
+	ArrayList<SumTask> tasksList = new ArrayList<SumTask>();
 
 	// The domain URL and student Number. Needed for accessing individual tasks.
 	public String taskDomainURL;
@@ -48,8 +48,8 @@ public class FindTask {
 	// Finding all the individual task URL's to make the taskList.
 	public String getTaskList(String taskInput) throws IOException, CustomException {
 		String[] urlSplit = taskInput.split("id=");
-		taskDomainURL = urlSplit[0].replace("/student?", "");
 		studentNumber = urlSplit[1];
+		taskDomainURL = urlSplit[0].replace("/student?", "");
 
 		// Making URL Connection for receiving tasks.
 		output += "Tasks received from the domain URL:\n";
@@ -74,7 +74,7 @@ public class FindTask {
 	}
 	
 	// Processing the specific task to be accepted by the Calculator class. 
-	public Calculate parseSpecificTask(String taskList) throws IOException, CustomException {
+	public SumTask parseSpecificTask(String taskList) throws IOException, CustomException {
 		jsonParser.parse(taskList);
 
 		// Parsing all fields needed to answer request.
@@ -101,7 +101,7 @@ public class FindTask {
 		}
 		String senderURL = (String) parseJSONObject.thisObjectContents.get("response URL");
 		// Calling Calculate class to process the given information.
-		return new Calculate(parseJSONInstruction, paramStringOne, paramStringTwo, senderURL);
+		return new SumTask(parseJSONInstruction, paramStringOne, paramStringTwo, senderURL);
 	}	
 	
 	// Requesting server connection to receive taskURL.
@@ -128,10 +128,10 @@ public class FindTask {
 	// Checking individual tasks for errors.
 	public void taskErrorCheck(String taskInstructions, String taskURL) throws IOException, CustomException {
 		boolean isParseFailure = false;
-		Calculate thisTask = null;
+		SumTask thisTask = null;
 		try {
 			thisTask = parseSpecificTask(taskInstructions);
-			thisTask.getSum();
+			thisTask.calculate();
 		} catch (CustomException error) {
 			output += error.getMessage() + "\n";
 			output += "Error for task: " + taskURL + "\n";
