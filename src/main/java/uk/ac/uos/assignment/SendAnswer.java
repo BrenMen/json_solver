@@ -19,10 +19,17 @@ public class SendAnswer {
 	// Destination of URL's my answers need to be sent to.
 	ArrayList<String> destinationUrls = new ArrayList<String>();
 
+	/**
+	 * Connects to destination URL and sends final formatted answers.
+	 * @param domainUrl
+	 * @param taskList
+	 * @return output
+	 * @throws CustomException
+	 * @throws IOException
+	 */
 	public String sendAnswer(String domainUrl, ArrayList<SumTask> taskList) throws CustomException, IOException {
 		String output = "";
 		int responseCode = 0;
-		
 		// Converting taskList into a list of answers and destination URL's.
 		for (int i = 0; i < taskList.size(); i++) {
 			SumTask jsonTask = taskList.get(i);
@@ -32,7 +39,6 @@ public class SendAnswer {
 		for (int i = 0; i < taskList.size(); i++) {
 			String thisUrl = destinationUrls.get(i);
 			String thisAnswer = myAnswers.get(i);
-			
 			// Connecting to server and writing answer to output.
 			try {
 				URL obj = new URL(domainUrl + thisUrl); 

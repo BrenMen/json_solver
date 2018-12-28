@@ -6,7 +6,11 @@ public class SumTask {
 	public String paramTwo;
 	public String response;
 
-	// Main method to call, returning the calculated sumAnswer.
+	/**
+	 * Main method to call, returning the calculated sumAnswer.
+	 * @return sumAnswer
+	 * @throws CustomException
+	 */
 	public String calculate() throws CustomException {
 		String sumAnswer = "";
 		if (instruction.equals("multiply")) {

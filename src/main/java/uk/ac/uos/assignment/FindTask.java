@@ -23,7 +23,12 @@ public class FindTask {
 	// Program output once tasks are completed.
 	public String output = "";
 
-	// Requesting the information to collect tasksLists and taskURL's.
+	/**
+	 * Requesting the information to collect tasksLists and taskURL's.
+	 * @param taskInput
+	 * @throws IOException
+	 * @throws CustomException
+	 */
 	public void taskFinder(String taskInput) throws IOException, CustomException {
 		
 		// Converting Objects to Strings and creating taskList.
@@ -36,7 +41,6 @@ public class FindTask {
 		}
 		this.taskPathURLs = stringTasks;
 		output += "Tasks list:\n";
-		
 		// Parsing each of the taskPathURLs.
 		for (int i = 0; i < taskPathURLs.size(); i++) {
 			String taskURL = taskDomainURL + taskPathURLs.get(i);
@@ -45,12 +49,17 @@ public class FindTask {
 			}
 	}		
 	
-	// Finding all the individual task URL's to make the taskList.
+	/**
+	 * Finding all the individual task URL's to make the taskList.
+	 * @param taskInput
+	 * @return tasks
+	 * @throws IOException
+	 * @throws CustomException
+	 */
 	public String getTaskList(String taskInput) throws IOException, CustomException {
 		String[] urlSplit = taskInput.split("id=");
 		studentNumber = urlSplit[1];
 		taskDomainURL = urlSplit[0].replace("/student?", "");
-
 		// Making URL Connection for receiving tasks.
 		output += "Tasks received from the domain URL:\n";
 		String tasks = getRequest(taskInput);
@@ -59,7 +68,13 @@ public class FindTask {
 		
 	}
 	
-	// Processing the taskList into readable Objects.
+	/**
+	 * Processing the taskList into readable Objects.
+	 * @param taskList
+	 * @return ArrayList
+	 * @throws IOException
+	 * @throws CustomException
+	 */
 	public ArrayList<Object> parseTaskList(String taskList) throws IOException, CustomException {
 		jsonParser.parse(taskList);
 		JSONObject parseJSONObject = jsonParser.mainObject;
@@ -73,10 +88,15 @@ public class FindTask {
 
 	}
 	
-	// Processing the specific task to be accepted by the Calculator class. 
+	/**
+	 * Processing the specific task to be accepted by the Calculator class.
+	 * @param taskList
+	 * @return SumTask
+	 * @throws IOException
+	 * @throws CustomException
+	 */
 	public SumTask parseSpecificTask(String taskList) throws IOException, CustomException {
 		jsonParser.parse(taskList);
-
 		// Parsing all fields needed to answer request.
 		JSONObject parseJSONObject = jsonParser.mainObject;
 		JSONArray parseJSONArray = (JSONArray) parseJSONObject.thisObjectContents.get("parameters");
@@ -104,7 +124,13 @@ public class FindTask {
 		return new SumTask(parseJSONInstruction, paramStringOne, paramStringTwo, senderURL);
 	}	
 	
-	// Requesting server connection to receive taskURL.
+	/**
+	 * Requesting server connection to receive taskURL.
+	 * @param taskInput
+	 * @return taskList
+	 * @throws IOException
+	 * @throws CustomException
+	 */
 	public String getRequest(String taskInput) throws IOException, CustomException {
 		URL obj = new URL(taskInput);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -125,7 +151,13 @@ public class FindTask {
 		return taskList;
 	}
 	
-	// Checking individual tasks for errors.
+	/**
+	 * Checking individual tasks for errors.
+	 * @param taskInstructions
+	 * @param taskURL
+	 * @throws IOException
+	 * @throws CustomException
+	 */
 	public void taskErrorCheck(String taskInstructions, String taskURL) throws IOException, CustomException {
 		boolean isParseFailure = false;
 		SumTask thisTask = null;
